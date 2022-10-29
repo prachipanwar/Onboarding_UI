@@ -5,6 +5,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import formLogo from './onboarding/Images/formlogo.PNG';
 import Stepper from '@mui/material/Stepper';
+import StepLabel from '@mui/material/StepLabel';
 import Step from '@mui/material/Step';
 import StepButton from '@mui/material/StepButton';
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
@@ -52,6 +53,121 @@ theme.typography.h6 = {
     fontSize: '1.2rem',
   },
 }
+const ColorlibStepIconRoot = styled("div")(({ theme, ownerState }) => ({
+  backgroundColor:
+    theme.palette.mode === "dark" ? theme.palette.grey[700] : "#ccc",
+  zIndex: 1,
+  color: "#fff",
+  width: 50,
+  height: 50,
+  display: "flex",
+  borderRadius: "50%",
+  justifyContent: "center",
+  alignItems: "center",
+  ...(ownerState.active && {
+    backgroundImage:
+      "linear-gradient( 136deg, rgb(102, 77, 229) 0%, rgb(102, 77, 229) 50%, rgb(102, 77, 229) 100%)",
+  }),
+  ...(ownerState.completed && {
+    backgroundImage:
+      "linear-gradient( 136deg, rgb(102, 77, 229) 0%, rgb(102, 77, 229) 50%, rgb(102, 77, 229) 100%)"
+  })
+}));
+
+function ColorlibStepIcon(props) {
+  const { active, completed, className } = props;
+  const steps = {
+    1: '1',
+    2: '2',
+    3: '3',
+    4: '4'
+  };
+  return (
+    <ColorlibStepIconRoot
+      ownerState={{ completed, active }}
+      className={className}
+    >{steps[String(props.icon)]}</ColorlibStepIconRoot>
+  );
+}
+const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
+  [`&.${stepConnectorClasses.alternativeLabel}`]: {
+    top: 22,
+  },
+  [`&.${stepConnectorClasses.active}`]: {
+    [`& .${stepConnectorClasses.line}`]: {
+      backgroundImage:
+        'linear-gradient( 95deg,rgb(102, 153, 153) 0%, rgb(179, 204, 204) 50%,rgb(224, 235, 235)100%)',
+    },
+  },
+  [`&.${stepConnectorClasses.completed}`]: {
+    [`& .${stepConnectorClasses.line}`]: {
+      backgroundImage:
+        'linear-gradient( 95deg,rgb(102, 153, 153) 0%, rgb(179, 204, 204) 50%,rgb(224, 235, 235)100%)',
+    },
+  },
+  [`& .${stepConnectorClasses.line}`]: {
+    height: 2,
+    border: 0,
+    backgroundColor:
+      theme.palette.mode === 'dark' ? 'rgb(117, 163, 163)' : 'rgb(240, 245, 245)',
+    borderRadius: 1,
+  },
+
+}));
+
+const BootstrapInput = styled(InputBase)(({ theme }) => ({
+  'label + &': {
+    marginTop: theme.spacing(3),
+  },
+  '& .MuiInputBase-input': {
+    borderRadius: 4,
+    position: 'relative',
+    backgroundColor: theme.palette.mode === 'light' ? '#fcfcfb' : '#2b2b2b',
+    border: '1px solid #ced4da',
+    fontSize: 16,
+    width: '300px',
+    padding: '10px 12px',
+    [theme.breakpoints.up('md')]: {
+      width: '400px',
+    },
+    transition: theme.transitions.create([
+      'border-color',
+      'background-color',
+      'box-shadow',
+    ]),
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+    '&:focus': {
+      boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
+      borderColor: theme.palette.primary.main,
+    },
+  },
+}));
+
+const WorkPlaceButton = styled(Button)(({ theme }) => ({
+  color: 'white',
+  backgroundColor: "#664DE5",
+  width: '300px',
+  [theme.breakpoints.up('md')]: {
+    width: '330px',
+  },
+  height: '45px',
+  fontSize: '13px',
+  '&:hover': {
+    backgroundColor: purple[500],
+  },
+}));
 
 function App() {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -69,85 +185,7 @@ function App() {
   const totalSteps = () => {
     return steps.length;
   };
-  const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
-    [`&.${stepConnectorClasses.alternativeLabel}`]: {
-      top: 22,
-    },
-    [`&.${stepConnectorClasses.active}`]: {
-      [`& .${stepConnectorClasses.line}`]: {
-        backgroundImage:
-          'linear-gradient( 95deg,rgb(102, 153, 153) 0%, rgb(179, 204, 204) 50%,rgb(224, 235, 235)100%)',
-      },
-    },
-    [`&.${stepConnectorClasses.completed}`]: {
-      [`& .${stepConnectorClasses.line}`]: {
-        backgroundImage:
-          'linear-gradient( 95deg,rgb(102, 153, 153) 0%, rgb(179, 204, 204) 50%,rgb(224, 235, 235)100%)',
-      },
-    },
-    [`& .${stepConnectorClasses.line}`]: {
-      height: 2,
-      border: 0,
-      backgroundColor:
-        theme.palette.mode === 'dark' ? 'rgb(117, 163, 163)' : 'rgb(240, 245, 245)',
-      borderRadius: 1,
-    },
 
-  }));
-
-  const BootstrapInput = styled(InputBase)(({ theme }) => ({
-    'label + &': {
-      marginTop: theme.spacing(3),
-    },
-    '& .MuiInputBase-input': {
-      borderRadius: 4,
-      position: 'relative',
-      backgroundColor: theme.palette.mode === 'light' ? '#fcfcfb' : '#2b2b2b',
-      border: '1px solid #ced4da',
-      fontSize: 16,
-      width: '300px',
-      padding: '10px 12px',
-      [theme.breakpoints.up('md')]: {
-        width: '400px',
-      },
-      transition: theme.transitions.create([
-        'border-color',
-        'background-color',
-        'box-shadow',
-      ]),
-      // Use the system font instead of the default Roboto font.
-      fontFamily: [
-        '-apple-system',
-        'BlinkMacSystemFont',
-        '"Segoe UI"',
-        'Roboto',
-        '"Helvetica Neue"',
-        'Arial',
-        'sans-serif',
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-      ].join(','),
-      '&:focus': {
-        boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
-        borderColor: theme.palette.primary.main,
-      },
-    },
-  }));
-
-  const WorkPlaceButton = styled(Button)(({ theme }) => ({
-    color: 'white',
-    backgroundColor: "#664DE5",
-    width: '300px',
-    [theme.breakpoints.up('md')]: {
-      width: '330px',
-    },
-    height: '45px',
-    fontSize: '13px',
-    '&:hover': {
-      backgroundColor: purple[500],
-    },
-  }));
   const WorkspaceURL = styled(InputBase)(({ theme }) => ({
     '& .MuiInputBase-input': {
       backgroundColor: 'red'
@@ -165,11 +203,8 @@ function App() {
     },
   }))
 
-  // rgb(98, 73, 227)
-  console.log("active step----", activeStep)
   return (
     <Grid containter>
-
       <Grid container
         direction="row" justifyContent="center"
         alignItems="center" mt={4}>
@@ -189,12 +224,13 @@ function App() {
       <Grid container
         direction="row" justifyContent="center"
         alignItems="center" mt={4}>
-        <Grid item xs={3}>
+        <Grid item md={3}>
           <Stepper nonLinear activeStep={activeStep} connector={<ColorlibConnector />}>
             {steps.map((label, index) => (
               <Step key={label} completed={completed[index]}>
-                <StepButton onClick={handleStep(index)}>
-                </StepButton>
+                {/* <StepButton onClick={handleStep(index)}> */}
+                <StepLabel StepIconComponent={ColorlibStepIcon} onClick={handleStep(index)}></StepLabel>
+                {/* </StepButton> */}
               </Step>
             ))}
           </Stepper>
@@ -308,8 +344,8 @@ function App() {
 
             </Grid>
             <Grid container direction="row" justifyContent="center"
-              alignItems="center" mt={3} spacing={3}>
-              <Grid item xs={12} sm={4} md={2} ml={{ xs: 10, sm: 0, md: 0 }}>
+              alignItems="center" mt={2} spacing={3}>
+              <Grid item xs={12} sm={4} md={2} ml={{ xs: 10, sm: 0, md: 2 }}>
                 <NewPaper elevation={3} value={0}>
                   <Grid item mb={4}>
                     <PersonRoundedIcon value={0} sx={{ fontSize: "30px" }} />
@@ -322,7 +358,7 @@ function App() {
                   </Grid>
                 </NewPaper>
               </Grid>
-              <Grid item xs={12} sm={4} md={2} ml={{ xs: 10, sm: 0, md: 0 }}>
+              <Grid item xs={12} sm={4} md={2} ml={{ xs: 10, sm: 0, md: 2 }}>
                 <NewPaper elevation={3} value={1}>
                   <Grid item mb={4}>
                     <GroupsRoundedIcon value={1} sx={{ fontSize: "30px" }} />

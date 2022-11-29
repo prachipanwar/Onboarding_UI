@@ -1,133 +1,64 @@
-import './App.css';
-import { Routes, Route } from 'react-router-dom';
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
-import formLogo from './onboarding/Images/formlogo.PNG';
-import Stepper from '@mui/material/Stepper';
-import StepLabel from '@mui/material/StepLabel';
-import Step from '@mui/material/Step';
-import StepButton from '@mui/material/StepButton';
-import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
-import { alpha, styled } from '@mui/material/styles';
+import AccessTimeFilledOutlinedIcon from '@mui/icons-material/AccessTimeFilledOutlined';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import PublicIcon from '@mui/icons-material/Public';
+import { createTheme, styled } from '@mui/material/styles';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import InputBase from '@mui/material/InputBase';
 import Button from '@mui/material/Button';
-import { purple } from '@mui/material/colors';
-import InputAdornment from '@mui/material/InputAdornment';
-import Paper from '@mui/material/Paper';
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
-import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
+import TextField from '@mui/material/TextField';
 
-const steps = [1, 2, 3, 4];
-
-const theme = createTheme();
-
-theme.typography.h4 = {
-  fontSize: '1.2rem',
-  '@media (min-width:600px)': {
-    fontSize: '1.5rem',
-  },
-  [theme.breakpoints.up('md')]: {
-    fontSize: '2rem',
-  },
-};
-theme.typography.h5 = {
-  fontSize: '1.2rem',
-  '@media (min-width:600px)': {
-    fontSize: '1.5rem',
-  },
-  [theme.breakpoints.up('md')]: {
-    fontSize: '1.2rem',
-  },
-}
-theme.typography.h6 = {
-  fontSize: '0.813rem',
-  '@media (min-width:600px)': {
-    fontSize: '1.5rem',
-  },
-  [theme.breakpoints.up('md')]: {
-    fontSize: '1.2rem',
-  },
-}
-const ColorlibStepIconRoot = styled("div")(({ theme, ownerState }) => ({
-  backgroundColor:
-    theme.palette.mode === "dark" ? theme.palette.grey[700] : "#ccc",
-  zIndex: 1,
-  color: "#fff",
-  width: 50,
-  height: 50,
-  display: "flex",
-  borderRadius: "50%",
-  justifyContent: "center",
-  alignItems: "center",
-  ...(ownerState.active && {
-    backgroundImage:
-      "linear-gradient( 136deg, rgb(102, 77, 229) 0%, rgb(102, 77, 229) 50%, rgb(102, 77, 229) 100%)",
-  }),
-  ...(ownerState.completed && {
-    backgroundImage:
-      "linear-gradient( 136deg, rgb(102, 77, 229) 0%, rgb(102, 77, 229) 50%, rgb(102, 77, 229) 100%)"
-  })
-}));
-
-function ColorlibStepIcon(props) {
-  const { active, completed, className } = props;
-  const steps = {
-    1: '1',
-    2: '2',
-    3: '3',
-    4: '4'
-  };
-  return (
-    <ColorlibStepIconRoot
-      ownerState={{ completed, active }}
-      className={className}
-    >{steps[String(props.icon)]}</ColorlibStepIconRoot>
-  );
-}
-const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
-  [`&.${stepConnectorClasses.alternativeLabel}`]: {
-    top: 22,
-  },
-  [`&.${stepConnectorClasses.active}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      backgroundImage:
-        'linear-gradient( 95deg,rgb(102, 153, 153) 0%, rgb(179, 204, 204) 50%,rgb(224, 235, 235)100%)',
+const inputTheme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 400,
+      sm: 700,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
     },
   },
-  [`&.${stepConnectorClasses.completed}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      backgroundImage:
-        'linear-gradient( 95deg,rgb(102, 153, 153) 0%, rgb(179, 204, 204) 50%,rgb(224, 235, 235)100%)',
-    },
-  },
-  [`& .${stepConnectorClasses.line}`]: {
-    height: 2,
-    border: 0,
-    backgroundColor:
-      theme.palette.mode === 'dark' ? 'rgb(117, 163, 163)' : 'rgb(240, 245, 245)',
-    borderRadius: 1,
-  },
+});
+const Item = styled(Paper)(({ theme }) => ({
+  margin: 'auto',
+  marginTop: '20px',
 
+  [theme.breakpoints.up('md')]: {
+    maxWidth: '70%',
+    // height: '500px',
+  },
+  [theme.breakpoints.up('xs')]: {
+    width: '80%',
+    //height: '500px',
+  },
 }));
-
-const BootstrapInput = styled(InputBase)(({ theme }) => ({
+const FormInput = styled(InputBase)(({ theme }) => ({
   'label + &': {
     marginTop: theme.spacing(3),
   },
   '& .MuiInputBase-input': {
     borderRadius: 4,
     position: 'relative',
-    backgroundColor: theme.palette.mode === 'light' ? '#fcfcfb' : '#2b2b2b',
+    //backgroundColor: theme.palette.mode === 'light' ? '#fcfcfb' : '#2b2b2b',
     border: '1px solid #ced4da',
     fontSize: 16,
-    width: '300px',
+    //width: '225px',
     padding: '10px 12px',
-    [theme.breakpoints.up('md')]: {
+    [inputTheme.breakpoints.up('xs')]: {
+      width: '255px',
+    },
+    [inputTheme.breakpoints.up('sm')]: {
+      width: '400px',
+    },
+    [inputTheme.breakpoints.up('md')]: {
+      width: '300px',
+    },
+    [inputTheme.breakpoints.up('lg')]: {
       width: '400px',
     },
     transition: theme.transitions.create([
@@ -135,279 +66,126 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
       'background-color',
       'box-shadow',
     ]),
-    // Use the system font instead of the default Roboto font.
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
     '&:focus': {
-      boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
       borderColor: theme.palette.primary.main,
-    },
+    }
   },
 }));
 
-const WorkPlaceButton = styled(Button)(({ theme }) => ({
-  color: 'white',
-  backgroundColor: "#664DE5",
-  width: '300px',
-  [theme.breakpoints.up('md')]: {
-    width: '330px',
-  },
-  height: '45px',
-  fontSize: '13px',
-  '&:hover': {
-    backgroundColor: purple[500],
-  },
-}));
+
+
 
 function App() {
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [completed, setCompleted] = React.useState({});
-
-  const handleStep = (step) => () => {
-    setActiveStep(step);
-  };
-  const allStepsCompleted = () => {
-    return completedSteps() === totalSteps();
-  };
-  const completedSteps = () => {
-    return Object.keys(completed).length;
-  };
-  const totalSteps = () => {
-    return steps.length;
-  };
-
-  const WorkspaceURL = styled(InputBase)(({ theme }) => ({
-    '& .MuiInputBase-input': {
-      backgroundColor: 'red'
-    }
-
-  }))
-  const NewPaper = styled(Paper)(({ theme }) => ({
-    width: '200px',
-    height: '200px',
-    padding: '10px',
-    cursor: 'pointer',
-    '&:active': {
-      border: '1px solid #664DE5',
-      color: '#664DE5'
-    },
-  }))
-
+  const [userDetails, setuserDetails] = React.useState({ name: '', email: '', feedback: '' });
+const onSubmit=()=>{
+    alert("Event is scheduled!" + JSON.stringify(userDetails));
+console.log("values---",userDetails)
+  }
   return (
-    <Grid containter>
+    <Item elevation={3}>
       <Grid container
-        direction="row" justifyContent="center"
-        alignItems="center" mt={4}>
-        <Grid item>
-          <img
-            className="benefits-details-image"
-            src={formLogo}
-            alt="logo"
-          ></img>
+        direction="row"
+        justifyContent="space-between"
+        alignItems="flex-start">
+        <Grid item md={4} p={3}>
+          <Grid item>
+            <Typography variant="h6" sx={{ color: 'text.secondary', fontWeight: 600 }}>Gaurav Garg</Typography>
+          </Grid>
+          <Grid item>
+            <Typography variant="h5" sx={{ fontWeight: 600 }}>15 Minute Meeting</Typography>
+          </Grid>
+          <Grid item mt={2}>
+            <Grid container direction="row" spacing={2}>
+              <Grid item xs={2}>
+                <AccessTimeFilledOutlinedIcon sx={{ fontSize: "20px", color: 'text.secondary' }} />
+              </Grid>
+              <Grid item xs={9}>
+                <Typography sx={{ color: 'text.secondary', fontWeight: 600 }}>15 min</Typography>
+              </Grid>
+            </Grid>
+
+          </Grid>
+          <Grid item mt={2}>
+            <Grid container direction="row" spacing={2}>
+              <Grid item xs={2}>
+                <CalendarTodayIcon sx={{ fontSize: "20px", color: 'text.secondary' }} />
+             
+              </Grid>
+              <Grid item xs={9}>
+                <Typography display="block" sx={{ color: 'text.secondary', fontWeight: 600 }}>9:30am - 9:45am,Friday,<br/>September 16 2022</Typography>
+              </Grid>
+            </Grid>
+
+          </Grid>
+          <Grid item mt={2}>
+            <Grid container direction="row" spacing={2}>
+              <Grid item xs={2}>
+                <PublicIcon sx={{ fontSize: "20px", color: 'text.secondary' }} />
+              </Grid>
+              <Grid item xs={9}>
+                <Typography sx={{ color: 'text.secondary', fontWeight: 600, overflow: 'wrap' }}>Indian Standard Time</Typography>
+              </Grid>
+            </Grid>
+
+          </Grid>
         </Grid>
-        <Grid item>
-          <Typography variant="h4" sx={{ fontWeight: 600 }}>
-            Eden
-          </Typography>
+        <Divider orientation="vertical" flexItem />
+        <Grid item md={7} p={3}>
+          <form  onSubmit={onSubmit}>
+            <Grid item >
+              <Typography variant="h6" sx={{ fontWeight: 600 }}>Enter Details</Typography>
+            </Grid>
+            <Grid container direction="column">
+              <Grid item mt={2}>
+                <FormControl variant="standard">
+
+                  <InputLabel shrink htmlFor="name" style={{ color: 'black', fontWeight: 600 }} required>
+                    Name
+                  </InputLabel>
+
+                  <FormInput id="name" value={userDetails.name}
+                    onChange={(e) => setuserDetails({ name: e.target.value, email: userDetails.email })} />
+                </FormControl>
+              </Grid>
+              <Grid item mt={2}>
+                <FormControl variant="standard">
+
+                  <InputLabel shrink htmlFor="email" style={{ color: 'black', fontWeight: 600 }} required >
+                    Email
+                  </InputLabel>
+
+                  <FormInput id="email" value={userDetails.email} onChange={(e) => setuserDetails({ name: userDetails.name, email: e.target.value })} />
+                </FormControl>
+              </Grid>
+              <Grid item mt={2}>
+                <Button variant="outlined" sx={{ borderRadius: '25px' }}>Add Guests</Button>
+              </Grid>
+              <Grid item mt={2}>
+                <FormControl variant="standard">
+                  <Grid style={{ color: 'black', fontWeight: 600 }} mb={1}> Please share anything that will help prepare for our meeting.</Grid>
+                  <TextField
+                    id="feedback" value={userDetails.feedback} onChange={(e) => setuserDetails({ name: userDetails.name, email: userDetails.email, feedback: e.target.value })}
+                    placeholder=""
+                    multiline
+                  />
+                </FormControl>
+              </Grid>
+              <Grid item mt={4}>
+                {userDetails.name && userDetails.email?(
+                   <Button variant="contained" sx={{ borderRadius: '25px' }} type="submit">Schedule Event</Button>
+                ):(<Button variant="contained" sx={{ borderRadius: '25px' }} disabled>
+                Schedule Event
+              </Button>)}
+             
+              </Grid>
+            </Grid>
+          </form>
+
         </Grid>
       </Grid>
-      <Grid container
-        direction="row" justifyContent="center"
-        alignItems="center" mt={4}>
-        <Grid item md={3}>
-          <Stepper nonLinear activeStep={activeStep} connector={<ColorlibConnector />}>
-            {steps.map((label, index) => (
-              <Step key={label} completed={completed[index]}>
-                {/* <StepButton onClick={handleStep(index)}> */}
-                <StepLabel StepIconComponent={ColorlibStepIcon} onClick={handleStep(index)}></StepLabel>
-                {/* </StepButton> */}
-              </Step>
-            ))}
-          </Stepper>
-        </Grid>
-      </Grid>
-      <Grid>
-        {activeStep === 0 && (
-          <Grid>
-            <Grid container
-              direction="column" justifyContent="center"
-              alignItems="center" mt={5}>
-              <Grid item xs={12}>
-                <ThemeProvider theme={theme}>
-                  <Typography variant="h4" sx={{ fontWeight: 600 }}>Welcome! First things first...</Typography>
-                </ThemeProvider>
-              </Grid>
-              <Grid item xs={12} mt={2} >
-                <ThemeProvider theme={theme}>
-                  <Typography variant="h5" sx={{ color: 'text.secondary', fontWeight: 600 }}>You can always change them later.</Typography>
-                </ThemeProvider>
-              </Grid>
+    </Item>
 
-            </Grid>
-            <Grid container
-              direction="column" justifyContent="center"
-              alignItems="center" mt={3}>
-              <Grid item xs={8} mt={2}>
-                <FormControl variant="standard">
-                  <InputLabel shrink htmlFor="bootstrap-input">
-                    Full Name
-                  </InputLabel>
-                  <BootstrapInput id="bootstrap-input" />
-                </FormControl>
-              </Grid>
-              <Grid item xs={8} mt={2}>
-                <FormControl variant="standard">
-                  <InputLabel shrink htmlFor="bootstrap-input">
-                    Display Name
-                  </InputLabel>
-                  <BootstrapInput id="bootstrap-input" />
-                </FormControl>
-              </Grid>
-              <Grid item xs={8} mt={5}>
-                <WorkPlaceButton variant="contained">Create Workspace</WorkPlaceButton>
-              </Grid>
-            </Grid>
-          </Grid>
-        )}
-        {activeStep === 1 && (
-          <Grid>
-            <Grid container
-              direction="column" justifyContent="center"
-              alignItems="center" mt={5}>
-              <Grid item xs={12}>
-                <ThemeProvider theme={theme}>
-                  <Typography variant="h4" sx={{ fontWeight: 600 }}>Let's set up a home for all your work</Typography>
-                </ThemeProvider>
-              </Grid>
-              <Grid item xs={12} mt={2} >
-                <ThemeProvider theme={theme}>
-                  <Typography variant="h6" sx={{ color: 'text.secondary', fontWeight: 600 }}>You can always create another workspace later.</Typography>
-                </ThemeProvider>
-              </Grid>
 
-            </Grid>
-            <Grid container
-              direction="column" justifyContent="center"
-              alignItems="center" mt={3}>
-              <Grid item xs={8} mt={2}>
-                <FormControl variant="standard">
-                  <InputLabel shrink htmlFor="bootstrap-input">
-                    Workspace Name
-                  </InputLabel>
-                  <BootstrapInput id="bootstrap-input" />
-                </FormControl>
-              </Grid>
-              <Grid item xs={8} mt={2}>
-                <FormControl variant="standard">
-                  <InputLabel shrink htmlFor="bootstrap-input">
-                    Workspace URL (Optional)
-                  </InputLabel>
-                  <BootstrapInput id="bootstrap-input" />
-                  {/* <BootstrapInput id="bootstrap-input" startAdornment={
-                    <InputAdornment position="start">
-                      <Button>abcd</Button>
-                    </InputAdornment>
-                  } /> */}
-                </FormControl>
-              </Grid>
-              <Grid item xs={8} mt={5}>
-                <WorkPlaceButton variant="contained">Create Workspace</WorkPlaceButton>
-              </Grid>
-            </Grid>
-          </Grid>
-        )}
-        {activeStep === 2 && (
-          <Grid>
-            <Grid container
-              direction="column" justifyContent="center"
-              alignItems="center" mt={5}>
-              <Grid item xs={12}>
-                <ThemeProvider theme={theme}>
-                  <Typography variant="h4" sx={{ fontWeight: 600 }}>How are you planning to use Eden ?</Typography>
-                </ThemeProvider>
-              </Grid>
-              <Grid item xs={12} mt={2} >
-                <ThemeProvider theme={theme}>
-                  <Typography variant="h6" sx={{ color: 'text.secondary', fontWeight: 600 }}>We'll streamline your setup experience accordingly.</Typography>
-                </ThemeProvider>
-              </Grid>
-
-            </Grid>
-            <Grid container direction="row" justifyContent="center"
-              alignItems="center" mt={2} spacing={3}>
-              <Grid item xs={12} sm={4} md={2} ml={{ xs: 10, sm: 0, md: 2 }}>
-                <NewPaper elevation={3} value={0}>
-                  <Grid item mb={4}>
-                    <PersonRoundedIcon value={0} sx={{ fontSize: "30px" }} />
-                  </Grid>
-                  <Grid item mb={4}>
-                    <Typography sx={{ fontWeight: 600, fontSize: 'initial' }} >For myself</Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography sx={{ color: 'text.secondary', fontWeight: 500, fontSize: 'initial' }}>Write better. Think more clearly.Stay Organized.</Typography>
-                  </Grid>
-                </NewPaper>
-              </Grid>
-              <Grid item xs={12} sm={4} md={2} ml={{ xs: 10, sm: 0, md: 2 }}>
-                <NewPaper elevation={3} value={1}>
-                  <Grid item mb={4}>
-                    <GroupsRoundedIcon value={1} sx={{ fontSize: "30px" }} />
-                  </Grid>
-                  <Grid item mb={2}>
-                    <Typography sx={{ fontWeight: 600, fontSize: 'initial' }} >With my team</Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography sx={{ color: 'text.secondary', fontWeight: 500, fontSize: 'initial' }}>Wikis,docs,tasks & projects,all in one place.</Typography>
-                  </Grid>
-                </NewPaper>
-              </Grid>
-            </Grid>
-            <Grid container direction="column" justifyContent="center"
-              alignItems="center">
-              <Grid item xs={8} mt={3}>
-                <WorkPlaceButton variant="contained">Create Workspace</WorkPlaceButton>
-              </Grid>
-            </Grid>
-          </Grid>
-        )}
-        {activeStep === 3 && (
-          <Grid>
-            <Grid container
-              direction="column" justifyContent="center"
-              alignItems="center" mt={10}>
-              <Grid item xs={12}>
-                <CheckCircleRoundedIcon sx={{ fontSize: "70px", color: '#664DE5' }} /></Grid>
-              <Grid item xs={12} mt={2}>
-                <Typography variant="h5" sx={{ fontWeight: 500 }}>Congratulations,Eren!</Typography>
-              </Grid>
-              <Grid item xs={12} sm={2} md={8} mt={2} >
-                <ThemeProvider theme={theme}>
-                  <Typography variant="h6" sx={{ color: 'text.secondary', fontWeight: 600 }}>You have completed onboarding,you can start using the Eden.</Typography>
-                </ThemeProvider>
-              </Grid>
-            </Grid>
-            <Grid container
-              direction="column" justifyContent="center"
-              alignItems="center" mt={5}>
-              <Grid item xs={8} sm={12} mt={5}>
-                <WorkPlaceButton variant="contained">Launch Eden</WorkPlaceButton>
-              </Grid>
-            </Grid>
-          </Grid>
-        )}
-      </Grid>
-    </Grid>
-  );
+  )
 }
-
 export default App;
